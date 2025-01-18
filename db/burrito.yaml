@@ -1,0 +1,9 @@
+title: "Burrito"
+categories:
+  - mexican
+slug: burrito
+servings: 2
+ingredients:
+  - ingredient
+directions:
+  - make the burrito
