@@ -6,8 +6,8 @@ const app = express();
 const port = 5858;
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.use(express.static("dist-client"));
+app.use("/packages", express.static("packages"));
+app.use("/dist-client", express.static("dist-client"));
 
 app.use("/", recipeRecipeRoute);
 app.use("/", recipesRoute);

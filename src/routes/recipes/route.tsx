@@ -8,7 +8,7 @@ const router = express.Router();
 function Recipes() {
   return (
     <>
-      <script async type="module" src="/user-js.client.js" />
+      <script async type="module" src="/dist-client/user-js.client.js" />
       <section className="container">
         <nav>
           <h1>Recipes</h1>
