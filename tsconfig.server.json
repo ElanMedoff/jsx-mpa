@@ -1,27 +1,9 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    /* Base Options: */
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "es2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
-
     "jsx": "react",
-
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-
-    /* If transpiling with TypeScript: */
     "module": "NodeNext",
-    "outDir": "dist-server",
-    "sourceMap": true,
-
-    "lib": ["es2022", "dom", "dom.iterable"]
+    "outDir": "dist-server"
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.client.ts"]

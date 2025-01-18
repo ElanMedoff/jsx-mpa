@@ -1,1 +1,1 @@
-window.addEventListener("load", () => console.log("here"));
+window.addEventListener("load", () => alert("load"));

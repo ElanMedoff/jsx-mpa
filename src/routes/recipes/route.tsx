@@ -5,13 +5,15 @@ import ReactDOMServer from "react-dom/server";
 
 const router = express.Router();
 
+// TODO: component to inject script tags based on current dir
+
 function Recipes() {
   return (
     <>
       <script async type="module" src="/dist-client/user-js.client.js" />
       <section className="container">
         <nav>
-          <h1>Recipes</h1>
+          <h1>All Recipes</h1>
         </nav>
         <hr />
         <form>

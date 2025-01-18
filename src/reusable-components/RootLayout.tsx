@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 
+// TODO: automatically inject script tags based on the packages dir
+
 export function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -11,18 +13,24 @@ export function RootLayout({ children }: { children: ReactNode }) {
         <link rel="stylesheet" href="/packages/pico.colors.min.css" />
       </head>
       <body>
-        <nav className="container">
-          <ul>
-            <li>
-              <a href="/recipes">
-                <strong>Recipe GUI</strong>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <Header />
         {children}
         <noscript>JavaScript is not enabled.</noscript>
       </body>
     </html>
+  );
+}
+
+function Header() {
+  return (
+    <nav className="container">
+      <ul>
+        <li>
+          <a href="/recipes">
+            <strong>Recipes</strong>
+          </a>
+        </li>
+      </ul>
+    </nav>
   );
 }
