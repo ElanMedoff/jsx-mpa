@@ -1,16 +1,15 @@
 import React from "react";
 import express from "express";
 import { RootLayout } from "../../reusable-components/RootLayout";
+import { Script } from "../../reusable-components/Script";
 import ReactDOMServer from "react-dom/server";
 
 const router = express.Router();
 
-// TODO: component to inject script tags based on current dir
-
 function Recipes() {
   return (
     <>
-      <script async type="module" src="/dist-client/user-js.client.js" />
+      <Script dirname={__dirname} />
       <section className="container">
         <nav>
           <h1>All Recipes</h1>

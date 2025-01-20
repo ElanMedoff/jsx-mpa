@@ -7,9 +7,9 @@
     "tsc-client:build": "tsc --project tsconfig.client.json",
     "tsc-server:watch": "tsc --watch --project tsconfig.server.json",
     "tsc-client:watch": "tsc --watch --project tsconfig.client.json",
-    "node:watch": "node --watch ./dist-server/index.js",
-    "dev": "concurrently \"npm run tsc-server:watch\" \"npm run tsc-client:watch\" \"npm run node:watch\"  ",
-    "build": "concurrently \"npm run tsc-server:build\" \"npm run tsc-client:build\" ",
+    "node:watch": "node --watch ./dist-server/src/index.js",
+    "dev": "concurrently \"npm run tsc-server:watch\" \"npm run tsc-client:watch\" \"npm run node:watch\"",
+    "build": "concurrently \"npm run tsc-server:build\" \"npm run tsc-client:build\"",
     "start": "node ./dist-server/src/index.js"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@picocss/pico": "^2.0.6",
     "express": "^4.21.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

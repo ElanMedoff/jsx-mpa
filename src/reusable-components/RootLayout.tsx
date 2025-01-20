@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
-
-// TODO: automatically inject script tags based on the packages dir
+import { clientPackages } from "../client-packages";
 
 export function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -9,8 +8,17 @@ export function RootLayout({ children }: { children: ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Base-bones HTML5</title>
-        <link rel="stylesheet" href="/packages/pico.min.css" />
-        <link rel="stylesheet" href="/packages/pico.colors.min.css" />
+        {clientPackages.map(({ type, path }) => {
+          switch (type) {
+            case "css": {
+              return <link rel="stylesheet" href={path} />;
+            }
+
+            case "js": {
+              return;
+            }
+          }
+        })}
       </head>
       <body>
         <Header />
