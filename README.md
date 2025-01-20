@@ -1,4 +1,6 @@
-# An old-school multi-page app with modern features
+# JSX-MPA
+
+## An old-school multi-page app with modern features
 
 - JSX/TSX templating (no client-side React necessary!)
 - Client bundles written in Typescript
