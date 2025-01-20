@@ -3,7 +3,7 @@ import fuzzy from "fuzzy";
 import { Option } from "../../utils/types";
 import React, { Fragment } from "react";
 import express from "express";
-import { Script } from "../../reusable-components/Script";
+import { ClientJs } from "../../reusable-components/ClientJs";
 import { renderErrorModalToString, wrappedRenderToString } from "../../utils/wrappedRenderToString";
 import { recipeSchema, RecipeSchema } from "../../utils/schemas";
 import path from "path";
@@ -72,14 +72,14 @@ function RecipesPerSearch({ search, recipes }: { search: string; recipes: Recipe
 function Recipes({ recipes, search }: { recipes: RecipeSchema[]; search: string }) {
   return (
     <>
-      <Script dirname={__dirname} />
+      <ClientJs dirname={__dirname} />
       <section className="container">
         <nav>
           <h1>All Recipes</h1>
         </nav>
         <hr />
         <form method="GET">
-          <input type="search" placeholder="Search" name="search" value={search} />
+          <input type="search" placeholder="Search" name="search" defaultValue={search} />
           <article>
             {search === "" ? (
               <RecipesPerCategory recipes={recipes} />
@@ -122,7 +122,6 @@ function getProps(): Option<RecipeSchema[]> {
 }
 
 router.get("/recipes", (req, res) => {
-  console.log(req);
   const url = req.url ?? "";
   const searchIndex = url.indexOf("?") ?? 0;
   const search = new URLSearchParams(url.slice(searchIndex)).get("search") ?? "";

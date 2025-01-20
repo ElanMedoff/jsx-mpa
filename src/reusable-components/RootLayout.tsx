@@ -7,14 +7,15 @@ export function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Base-bones HTML5</title>
+        <title>Recipes</title>
         {clientPackages.map(({ type, path }) => {
           switch (type) {
             case "css": {
-              return <link rel="stylesheet" href={path} />;
+              return <link rel="stylesheet" href={path} key={path} />;
             }
 
             case "js": {
+              // TODO
               return;
             }
           }
@@ -23,7 +24,6 @@ export function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <Header />
         {children}
-        <noscript>JavaScript is not enabled.</noscript>
       </body>
     </html>
   );
