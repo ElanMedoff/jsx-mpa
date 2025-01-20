@@ -1,0 +1,9 @@
+title: "Pizza"
+categories:
+  - italian
+slug: pizza
+servings: 3
+ingredients:
+  - ingredient
+directions:
+  - make the pizza

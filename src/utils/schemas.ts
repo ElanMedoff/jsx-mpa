@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const recipeSchema = z.object({
   title: z.string(),
-  categories: z.array(z.enum(["soup", "mexican", "pasta", "sides", "jewish", "sandwich", "american", "asian"])),
+  categories: z.array(z.enum(["italian", "mexican"])),
   ingredients: z.array(
     z.union([
       z.string(),

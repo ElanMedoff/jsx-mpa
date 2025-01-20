@@ -1,12 +1,10 @@
 import express from "express";
 import fs from "fs";
-import ReactDOMServer from "react-dom/server";
-import { RootLayout } from "../../reusable-components/RootLayout";
 import { recipeSchema, RecipeSchema } from "../../utils/schemas";
 import { Option } from "../../utils/types";
 import React from "react";
-import { ErrorModal } from "../../reusable-components/ErrorModal";
 import YAML from "yaml";
+import { renderErrorModalToString, wrappedRenderToString } from "../../utils/wrappedRenderToString";
 
 const router = express.Router();
 
@@ -63,7 +61,7 @@ function Recipe({ recipe }: { recipe: RecipeSchema }) {
 }
 
 function getProps(recipe: string): Option<RecipeSchema> {
-  const recipePath = `recipes/${recipe}.yaml`;
+  const recipePath = `db/${recipe}.yaml`;
   if (!fs.existsSync(recipePath)) {
     return {
       type: "error",
@@ -94,23 +92,11 @@ router.get("/recipe/:recipe", (req, res) => {
   const props = getProps(req.params.recipe);
 
   if (props.type === "error") {
-    res.status(500).send(
-      ReactDOMServer.renderToString(
-        <RootLayout>
-          <ErrorModal error={props.error} />;
-        </RootLayout>
-      )
-    );
+    res.status(500).send(renderErrorModalToString(props.error));
     return;
   }
 
-  res.send(
-    ReactDOMServer.renderToString(
-      <RootLayout>
-        <Recipe recipe={props.data} />
-      </RootLayout>
-    )
-  );
+  res.send(wrappedRenderToString(<Recipe recipe={props.data} />));
 });
 
 export default router;
