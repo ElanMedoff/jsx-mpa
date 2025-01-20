@@ -1,11 +1,11 @@
 # JSX-MPA
 
-## An old-school multi-page app with modern features
+#### An old-school multi-page app with modern features
 
 - JSX/TSX templating (no client-side React necessary!)
 - Client bundles written in Typescript
 
-With some conventions and helpers:
+#### With some conventions and helpers:
 
 - File based routing
 - Client javascript co-located with server routes
