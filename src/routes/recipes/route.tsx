@@ -48,8 +48,8 @@ function RecipesPerCategory({ recipes }: { recipes: RecipeSchema[] }) {
   );
 }
 
-function RecipesPerSearch({ searchInput, recipes }: { searchInput: string; recipes: RecipeSchema[] }) {
-  const fuzzyRecipes = fuzzy.filter(searchInput, recipes, {
+function RecipesPerSearch({ search, recipes }: { search: string; recipes: RecipeSchema[] }) {
+  const fuzzyRecipes = fuzzy.filter(search, recipes, {
     extract: (recipe) => recipe.title,
     pre: "<span style='color: var(--pico-color-red-500)'>",
     post: "</span>",
@@ -69,7 +69,7 @@ function RecipesPerSearch({ searchInput, recipes }: { searchInput: string; recip
   );
 }
 
-function Recipes({ recipes }: { recipes: RecipeSchema[] }) {
+function Recipes({ recipes, search }: { recipes: RecipeSchema[]; search: string }) {
   return (
     <>
       <Script dirname={__dirname} />
@@ -78,10 +78,14 @@ function Recipes({ recipes }: { recipes: RecipeSchema[] }) {
           <h1>All Recipes</h1>
         </nav>
         <hr />
-        <form>
-          <input type="search" placeholder="Search" name="search" />
+        <form method="GET">
+          <input type="search" placeholder="Search" name="search" value={search} />
           <article>
-            <RecipesPerCategory recipes={recipes} />
+            {search === "" ? (
+              <RecipesPerCategory recipes={recipes} />
+            ) : (
+              <RecipesPerSearch recipes={recipes} search={search} />
+            )}
           </article>
         </form>
       </section>
@@ -117,7 +121,11 @@ function getProps(): Option<RecipeSchema[]> {
   };
 }
 
-router.get("/recipes", (_, res) => {
+router.get("/recipes", (req, res) => {
+  console.log(req);
+  const url = req.url ?? "";
+  const searchIndex = url.indexOf("?") ?? 0;
+  const search = new URLSearchParams(url.slice(searchIndex)).get("search") ?? "";
   const props = getProps();
 
   if (props.type === "error") {
@@ -125,7 +133,7 @@ router.get("/recipes", (_, res) => {
     return;
   }
 
-  res.send(wrappedRenderToString(<Recipes recipes={props.data} />));
+  res.send(wrappedRenderToString(<Recipes recipes={props.data} search={search} />));
 });
 
 export default router;
