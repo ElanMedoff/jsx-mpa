@@ -11,8 +11,7 @@ import { clientPackages } from "./client-packages/index";
   });
 
   const recursiveFiles = await fs.promises.readdir("dist-server/src/routes", { recursive: true });
-  const routeFileNames = recursiveFiles.filter((file) => file.endsWith(".js"));
-  console.log(routeFileNames);
+  const routeFileNames = recursiveFiles.filter((file) => file.endsWith(".js")); // excludes directories and source maps
 
   for (const routeFileName of routeFileNames) {
     // dynamic import is running at run-time, so need to use the path of the compiled code
