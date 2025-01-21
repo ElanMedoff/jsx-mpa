@@ -78,9 +78,9 @@ function Recipes({ recipes, search }: { recipes: RecipeSchema[]; search: string 
           <h1>All Recipes</h1>
         </nav>
         <hr />
-        <form method="GET">
+        <form method="GET" action="/recipes">
           <input type="search" placeholder="Search" name="search" defaultValue={search} />
-          <article>
+          <article id="search-results">
             {search === "" ? (
               <RecipesPerCategory recipes={recipes} />
             ) : (
@@ -93,7 +93,7 @@ function Recipes({ recipes, search }: { recipes: RecipeSchema[]; search: string 
   );
 }
 
-function getProps(): Option<RecipeSchema[]> {
+export function getProps(): Option<RecipeSchema[]> {
   const files = fs.readdirSync("db");
   const recipes: RecipeSchema[] = [];
 
@@ -122,13 +122,20 @@ function getProps(): Option<RecipeSchema[]> {
 }
 
 router.get("/recipes", (req, res) => {
+  const isPartial = req.headers["x-fetch-partial"] === "1";
+
   const url = req.url ?? "";
   const searchIndex = url.indexOf("?") ?? 0;
   const search = new URLSearchParams(url.slice(searchIndex)).get("search") ?? "";
   const props = getProps();
 
   if (props.type === "error") {
-    res.status(500).send(renderErrorModalToString(props.error));
+    res.status(500).send(renderErrorModalToString(props.error, { isPartial }));
+    return;
+  }
+
+  if (isPartial) {
+    res.send(wrappedRenderToString(<RecipesPerSearch recipes={props.data} search={search} />, { isPartial: true }));
     return;
   }
 
