@@ -1,10 +1,10 @@
 import express from "express";
 import fs from "fs";
-import { recipeSchema, RecipeSchema } from "../../utils/schemas";
-import { Option } from "../../utils/types";
+import { recipeSchema, RecipeSchema } from "../../../utils/schemas";
+import { Option } from "../../../utils/types";
 import React from "react";
 import YAML from "yaml";
-import { renderErrorModalToString, wrappedRenderToString } from "../../utils/wrappedRenderToString";
+import { renderErrorModalToString, wrappedRenderToString } from "../../../utils/wrappedRenderToString";
 
 const router = express.Router();
 
